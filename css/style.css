@@ -461,6 +461,34 @@ h1 {
 	font-weight: 750;
 }
 
+.site-footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	width: min(1120px, calc(100% - 2rem));
+	margin: 0 auto;
+	padding: 1.5rem 0 2.5rem;
+	border-top: 1px solid var(--line);
+	color: var(--muted);
+	font-size: 0.86rem;
+}
+
+.site-footer p { margin: 0; }
+
+.site-footer a {
+	font-weight: 650;
+	text-decoration: none;
+}
+
+.site-footer a:hover { text-decoration: underline; }
+
+.footer-label {
+	margin-right: 0.35rem;
+	color: var(--ink);
+	font-weight: 750;
+}
+
 @media (max-width: 800px) {
 	.nav-inner {
 		align-items: flex-start;
@@ -482,6 +510,11 @@ h1 {
 
 	.insight-card,
 	.chart-heading {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	.site-footer {
 		align-items: flex-start;
 		flex-direction: column;
 	}
