@@ -24,3 +24,4 @@ None.
 5. Is there anything special we need to know in order to run your code?
 
 Compile ts/tweet.ts by running `tsc --p tsconfig.json` from the repository root. Then serve the repository with a local web server, such as `live-server`. The sentiment column on the search page is the optional bonus feature; it uses a small, transparent positive/negative word-list heuristic and labels other text Neutral.
+The About page also includes dynamically computed category-share meters. They animate once when the data loads, remain proportional to the active dataset, and respect reduced-motion preferences.

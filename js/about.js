@@ -17,6 +17,19 @@ function parseTweets(runkeeper_tweets) {
 	const percentage = function(count, total) {
 		return total === 0 ? '0.00%' : ((count / total) * 100).toFixed(2) + '%';
 	};
+	const updateCategoryMeters = function(counts, total) {
+		document.querySelectorAll('.stat-meter').forEach(function(meter) {
+			const count = counts[meter.dataset.category] || 0;
+			const share = total === 0 ? 0 : (count / total) * 100;
+			meter.style.setProperty('--meter-value', share + '%');
+			meter.setAttribute('aria-valuenow', share.toFixed(2));
+			meter.setAttribute('aria-valuetext', count + ' Tweets, ' + share.toFixed(2) + ' percent');
+		});
+
+		window.requestAnimationFrame(function() {
+			document.querySelector('.stats-grid').classList.add('meters-ready');
+		});
+	};
 
 	const categoryCounts = {
 		completed_event: 0,
@@ -57,6 +70,7 @@ function parseTweets(runkeeper_tweets) {
 	setTextByClass('achievementsPct', percentage(categoryCounts.achievement, tweet_array.length));
 	setTextByClass('miscellaneous', categoryCounts.miscellaneous);
 	setTextByClass('miscellaneousPct', percentage(categoryCounts.miscellaneous, tweet_array.length));
+	updateCategoryMeters(categoryCounts, tweet_array.length);
 	setTextByClass('written', writtenTweets.length);
 	setTextByClass('writtenPct', percentage(writtenTweets.length, completedTweets.length));
 }
