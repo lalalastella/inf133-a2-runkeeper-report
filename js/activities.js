@@ -69,21 +69,22 @@ function parseTweets(runkeeper_tweets) {
 	const weekendAverage = weekdayWeekend.weekends.count ? weekdayWeekend.weekends.total / weekdayWeekend.weekends.count : 0;
 	document.getElementById('weekdayOrWeekendLonger').textContent = weekendAverage > weekdayAverage ? 'weekends' : 'weekdays';
 
+	const isDarkTheme = document.documentElement.dataset.theme === 'dark';
 	const chartConfig = {
 		background: null,
 		font: '-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif',
 		axis: {
-			labelColor: '#52677a',
-			titleColor: '#1d1d1f',
-			gridColor: '#e6edf2',
-			domainColor: '#b9c8d3',
+			labelColor: isDarkTheme ? '#a1a1a6' : '#52677a',
+			titleColor: isDarkTheme ? '#f5f5f7' : '#1d1d1f',
+			gridColor: isDarkTheme ? '#38383a' : '#e6edf2',
+			domainColor: isDarkTheme ? '#636366' : '#b9c8d3',
 			labelFontSize: 12,
 			titleFontSize: 13,
 			titlePadding: 12
 		},
 		legend: {
-			labelColor: '#52677a',
-			titleColor: '#1d1d1f',
+			labelColor: isDarkTheme ? '#a1a1a6' : '#52677a',
+			titleColor: isDarkTheme ? '#f5f5f7' : '#1d1d1f',
 			orient: 'bottom'
 		},
 		view: {stroke: null}
@@ -186,5 +187,8 @@ function parseTweets(runkeeper_tweets) {
 
 //Wait for the DOM to load
 document.addEventListener('DOMContentLoaded', function (event) {
+	document.addEventListener('themechange', function() {
+		window.location.reload();
+	});
 	loadSavedRunkeeperTweets().then(parseTweets);
 });
