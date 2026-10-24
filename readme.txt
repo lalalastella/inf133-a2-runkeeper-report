@@ -1,3 +1,4 @@
+--Runkeeper Pulse: One Week in Motion--
 --Readme document for Stella Jiang, yuxuj10@uci.edu--
 
 1. How many assignment points do you believe you completed (replace the *'s with your numbers)?
