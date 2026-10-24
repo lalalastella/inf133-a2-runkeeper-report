@@ -104,8 +104,9 @@ class Tweet {
     getHTMLTableRow(rowNumber:number):string {
         const escapedActivity = this.escapeHTML(this.activityType);
         const escapedTweet = this.linkifyTweetText();
+        const sentimentClass = "sentiment-" + this.sentiment.toLowerCase();
 
-        return `<tr><th scope="row">${rowNumber}</th><td>${escapedActivity}</td><td>${this.sentiment}</td><td>${escapedTweet}</td></tr>`;
+        return `<tr class="${sentimentClass}"><th scope="row">${rowNumber}</th><td><span class="activity-tag">${escapedActivity}</span></td><td>${this.sentiment}</td><td>${escapedTweet}</td></tr>`;
     }
 
     private linkifyTweetText():string {
@@ -113,11 +114,14 @@ class Tweet {
         let result = "";
         let previousIndex = 0;
         let match:RegExpExecArray | null;
+        let linkNumber = 0;
 
         while ((match = urlPattern.exec(this.text)) !== null) {
             result += this.escapeHTML(this.text.slice(previousIndex, match.index));
             const escapedURL = this.escapeHTML(match[0]);
-            result += `<a href="${escapedURL}" target="_blank" rel="noopener noreferrer">${escapedURL}</a>`;
+            linkNumber += 1;
+            const linkLabel = linkNumber === 1 ? "Open activity ↗" : `Open link ${linkNumber} ↗`;
+            result += `<a href="${escapedURL}" class="activity-link" target="_blank" rel="noopener noreferrer" aria-label="${linkLabel} in a new tab">${linkLabel}</a>`;
             previousIndex = match.index + match[0].length;
         }
 

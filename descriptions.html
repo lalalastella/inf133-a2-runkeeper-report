@@ -40,32 +40,38 @@
   </nav>
   <main class="page-shell">
     <header class="page-hero">
-      <p class="eyebrow">User-written text · live filter</p>
-      <h1>What people said.</h1>
-      <p class="hero-copy">Search only the text written by people—not the standard Runkeeper template—and open any activity link directly from the results.</p>
+      <p class="eyebrow">Community voices · live search</p>
+      <h1>Explore what people are saying.</h1>
+      <p class="hero-copy">Search runners’ own words—not Runkeeper’s standard template—and open any activity link directly from the results.</p>
     </header>
 
     <section class="search-panel" aria-labelledby="search-label">
-      <label id="search-label" class="search-label" for="textFilter">Search user-written Tweet text</label>
+      <label id="search-label" class="search-label" for="textFilter">What would you like to find?</label>
       <div class="search-row">
-        <input id="textFilter" class="search-input" type="search" placeholder="Try “rain”, “great”, or “morning”" autocomplete="off">
-        <button id="clearSearch" class="button-secondary" type="button" disabled>Clear search</button>
+        <input id="textFilter" class="search-input" type="search" placeholder="Search a word or phrase" autocomplete="off">
+        <button id="clearSearch" class="button-secondary" type="button" disabled>Clear</button>
       </div>
-      <p class="search-summary" aria-live="polite">
-        <span id="searchCount" class="data-value">0</span> Tweets contain “<span id="searchText"></span>”.
+      <div class="search-suggestions" aria-label="Search examples">
+        <span>Try</span>
+        <button class="search-suggestion" type="button" data-query="rain">rain</button>
+        <button class="search-suggestion" type="button" data-query="great">great</button>
+        <button class="search-suggestion" type="button" data-query="morning">morning</button>
+      </div>
+      <p id="searchSummary" class="search-summary" aria-live="polite" hidden>
+        <span id="searchCount" class="data-value">0</span> personal Tweets mention “<span id="searchText"></span>”.
       </p>
-      <p id="searchEmptyState" class="empty-state">Start typing to explore user-written Tweets.</p>
+      <p id="searchEmptyState" class="empty-state">Choose an example or enter a word to explore people’s posts.</p>
     </section>
 
-    <section class="results-card" aria-label="Tweet search results">
+    <section id="searchResults" class="results-card" aria-label="Tweet search results" hidden>
       <div class="table-responsive">
         <table class="results-table">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Activity type</th>
-              <th scope="col">Sentiment</th>
-              <th scope="col">Tweet</th>
+              <th scope="col">No.</th>
+              <th scope="col">Activity</th>
+              <th scope="col">Mood</th>
+              <th scope="col">Tweet and activity link</th>
             </tr>
           </thead>
           <tbody id="tweetTable"></tbody>

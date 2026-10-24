@@ -18,6 +18,14 @@ function parseTweets(runkeeper_tweets) {
 
 function addEventHandlerForSearch() {
 	document.getElementById('textFilter').addEventListener('input', updateSearchResults);
+	document.querySelectorAll('.search-suggestion').forEach(function(button) {
+		button.addEventListener('click', function() {
+			const searchBox = document.getElementById('textFilter');
+			searchBox.value = button.dataset.query;
+			searchBox.focus();
+			updateSearchResults();
+		});
+	});
 	document.getElementById('clearSearch').addEventListener('click', function() {
 		const searchBox = document.getElementById('textFilter');
 		searchBox.value = '';
@@ -32,13 +40,17 @@ function updateSearchResults() {
 	const tableBody = document.getElementById('tweetTable');
 	const clearButton = document.getElementById('clearSearch');
 	const emptyState = document.getElementById('searchEmptyState');
+	const searchSummary = document.getElementById('searchSummary');
+	const resultsCard = document.getElementById('searchResults');
 	document.getElementById('searchText').textContent = searchText;
 	clearButton.disabled = searchText.length === 0;
 
 	if (searchText.length === 0) {
 		document.getElementById('searchCount').textContent = '0';
 		tableBody.innerHTML = '';
-		emptyState.textContent = 'Start typing to explore user-written Tweets.';
+		searchSummary.hidden = true;
+		resultsCard.hidden = true;
+		emptyState.textContent = 'Choose an example or enter a word to explore people’s posts.';
 		emptyState.hidden = false;
 		return;
 	}
@@ -49,10 +61,12 @@ function updateSearchResults() {
 	});
 
 	document.getElementById('searchCount').textContent = matches.length;
+	searchSummary.hidden = false;
 	tableBody.innerHTML = matches.map(function(tweet, index) {
 		return tweet.getHTMLTableRow(index + 1);
 	}).join('');
-	emptyState.textContent = matches.length === 0 ? 'No matching Tweets. Try a shorter or different word.' : '';
+	resultsCard.hidden = matches.length === 0;
+	emptyState.textContent = matches.length === 0 ? 'No personal posts match that search. Try a shorter or different word.' : '';
 	emptyState.hidden = matches.length > 0;
 }
 

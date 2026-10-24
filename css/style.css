@@ -487,9 +487,11 @@ h1 {
 
 .search-label {
 	display: block;
-	margin-bottom: 0.55rem;
+	margin-bottom: 0.75rem;
 	color: var(--navy-deep);
-	font-weight: 750;
+	font-size: clamp(1.05rem, 2vw, 1.25rem);
+	font-weight: 760;
+	letter-spacing: -0.02em;
 }
 
 .search-row {
@@ -503,7 +505,7 @@ h1 {
 	min-height: 48px;
 	padding: 0.75rem 1rem;
 	border: 1px solid var(--line);
-	border-radius: 12px;
+	border-radius: 14px;
 	background: var(--glass-strong);
 	color: var(--ink);
 	font-size: 1rem;
@@ -512,6 +514,33 @@ h1 {
 .search-input:focus {
 	border-color: var(--coral);
 	box-shadow: 0 0 0 4px rgba(255, 55, 95, 0.1);
+}
+
+.search-suggestions {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: 0.8rem;
+	color: var(--muted);
+	font-size: 0.86rem;
+}
+
+.search-suggestion {
+	min-height: 34px;
+	padding: 0.35rem 0.75rem;
+	border: 1px solid var(--glass-line);
+	border-radius: 999px;
+	background: var(--glass-strong);
+	color: var(--ink);
+	font-weight: 700;
+	transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.search-suggestion:hover {
+	border-color: var(--coral);
+	color: var(--coral);
+	transform: translateY(-1px);
 }
 
 .search-summary {
@@ -538,6 +567,8 @@ h1 {
 	backdrop-filter: blur(26px) saturate(165%);
 	overflow: hidden;
 }
+
+.results-card[hidden] { display: none; }
 
 .table-responsive {
 	max-height: 62vh;
@@ -586,6 +617,40 @@ h1 {
 .results-table td:nth-child(3) {
 	color: var(--navy);
 	font-weight: 750;
+}
+
+.activity-tag,
+.activity-link {
+	display: inline-flex;
+	align-items: center;
+	min-height: 28px;
+	border-radius: 999px;
+	font-size: 0.78rem;
+	font-weight: 750;
+	line-height: 1;
+}
+
+.activity-tag {
+	padding: 0.35rem 0.65rem;
+	background: color-mix(in srgb, var(--cyan) 14%, transparent);
+	color: var(--navy-deep);
+}
+
+.results-table tbody tr.sentiment-positive td:nth-child(3) { color: var(--mint); }
+.results-table tbody tr.sentiment-negative td:nth-child(3) { color: var(--coral); }
+.results-table tbody tr.sentiment-neutral td:nth-child(3) { color: var(--muted); }
+
+.activity-link {
+	margin: 0 0.22rem;
+	padding: 0.35rem 0.65rem;
+	background: color-mix(in srgb, var(--coral) 12%, transparent);
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.activity-link:hover {
+	background: color-mix(in srgb, var(--coral) 20%, transparent);
+	color: var(--coral);
 }
 
 .site-footer {
