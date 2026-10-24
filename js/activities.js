@@ -69,13 +69,35 @@ function parseTweets(runkeeper_tweets) {
 	const weekendAverage = weekdayWeekend.weekends.count ? weekdayWeekend.weekends.total / weekdayWeekend.weekends.count : 0;
 	document.getElementById('weekdayOrWeekendLonger').textContent = weekendAverage > weekdayAverage ? 'weekends' : 'weekdays';
 
+	const chartConfig = {
+		background: null,
+		font: '-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif',
+		axis: {
+			labelColor: '#52677a',
+			titleColor: '#1d1d1f',
+			gridColor: '#e6edf2',
+			domainColor: '#b9c8d3',
+			labelFontSize: 12,
+			titleFontSize: 13,
+			titlePadding: 12
+		},
+		legend: {
+			labelColor: '#52677a',
+			titleColor: '#1d1d1f',
+			orient: 'bottom'
+		},
+		view: {stroke: null}
+	};
+
 	const activityVisSpec = {
 	  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
 	  "description": "A graph of the number of Tweets containing each type of activity.",
+	  "width": "container",
+	  "height": 320,
 	  "data": {
 	    "values": activityData
 	  },
-	  "mark": "bar",
+	  "mark": {"type": "bar", "color": "#ff375f", "cornerRadiusEnd": 5},
 	  "encoding": {
 		"x": {"field": "activityType", "type": "nominal", "sort": "-y", "title": "Activity type"},
 		"y": {"field": "count", "type": "quantitative", "title": "Number of Tweets"},
@@ -83,9 +105,10 @@ function parseTweets(runkeeper_tweets) {
 		  {"field": "activityType", "type": "nominal", "title": "Activity"},
 		  {"field": "count", "type": "quantitative", "title": "Tweets"}
 		]
-	  }
+	  },
+	  "config": chartConfig
 	};
-	vegaEmbed('#activityVis', activityVisSpec, {actions:false});
+	vegaEmbed('#activityVis', activityVisSpec, {actions:false, renderer:'svg'});
 
 	const dayOrder = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 	const distanceData = topActivityTweets.map(function(tweet) {
@@ -97,13 +120,20 @@ function parseTweets(runkeeper_tweets) {
 	});
 	const commonEncoding = {
 		x: {field: 'dayOfWeek', type: 'ordinal', sort: dayOrder, title: 'Day of week'},
-		color: {field: 'activityType', type: 'nominal', title: 'Activity type'}
+		color: {
+			field: 'activityType',
+			type: 'nominal',
+			title: 'Activity type',
+			scale: {range: ['#ff375f', '#30d158', '#0a84ff']}
+		}
 	};
 	const distanceVisSpec = {
 		$schema: 'https://vega.github.io/schema/vega-lite/v5.json',
 		description: 'Distances of the three most common activities by day of the week.',
+		width: 'container',
+		height: 360,
 		data: {values: distanceData},
-		mark: {type: 'point', opacity: 0.3},
+		mark: {type: 'point', filled: true, opacity: 0.3, size: 58},
 		encoding: {
 			x: commonEncoding.x,
 			y: {field: 'distance', type: 'quantitative', title: 'Distance (miles)'},
@@ -113,13 +143,16 @@ function parseTweets(runkeeper_tweets) {
 				{field: 'dayOfWeek', type: 'ordinal', title: 'Day'},
 				{field: 'distance', type: 'quantitative', title: 'Miles', format: '.2f'}
 			]
-		}
+		},
+		config: chartConfig
 	};
 	const distanceVisAggregatedSpec = {
 		$schema: 'https://vega.github.io/schema/vega-lite/v5.json',
 		description: 'Mean distances of the three most common activities by day of the week.',
+		width: 'container',
+		height: 360,
 		data: {values: distanceData},
-		mark: 'bar',
+		mark: {type: 'bar', cornerRadiusEnd: 3},
 		encoding: {
 			x: commonEncoding.x,
 			xOffset: {field: 'activityType'},
@@ -130,11 +163,12 @@ function parseTweets(runkeeper_tweets) {
 				{field: 'dayOfWeek', type: 'ordinal', title: 'Day'},
 				{aggregate: 'mean', field: 'distance', type: 'quantitative', title: 'Mean miles', format: '.2f'}
 			]
-		}
+		},
+		config: chartConfig
 	};
 
-	vegaEmbed('#distanceVis', distanceVisSpec, {actions:false});
-	vegaEmbed('#distanceVisAggregated', distanceVisAggregatedSpec, {actions:false});
+	vegaEmbed('#distanceVis', distanceVisSpec, {actions:false, renderer:'svg'});
+	vegaEmbed('#distanceVisAggregated', distanceVisAggregatedSpec, {actions:false, renderer:'svg'});
 
 	const rawChart = document.getElementById('distanceVis');
 	const aggregatedChart = document.getElementById('distanceVisAggregated');
@@ -146,6 +180,7 @@ function parseTweets(runkeeper_tweets) {
 		rawChart.style.display = showingMeans ? 'none' : 'block';
 		aggregatedChart.style.display = showingMeans ? 'block' : 'none';
 		aggregateButton.textContent = showingMeans ? 'Show individual activities' : 'Show means';
+		aggregateButton.setAttribute('aria-pressed', String(showingMeans));
 	});
 }
 

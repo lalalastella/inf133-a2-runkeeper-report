@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="author" content="Your name here">
+  <meta name="author" content="Stella Jiang">
   <meta name="description" content="One week of #RunKeeper Tweets">
   <!--Load Vega-lite-->
   <script src="https://cdn.jsdelivr.net/npm/vega@5.21.0"></script>
@@ -22,39 +22,59 @@
   <script type="text/javascript" src="js/activities.js"></script>
   <title>One week of #RunKeeper Tweets</title>
 </head>
-<body class="container">
-  <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-primary">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item navbar-brand">
-        <span class="navbar-brand">
-          One week of #RunKeeper Tweets
-        </span>
-      </li>
-      <li class="nav-item">
-        <a href="index.html" class="nav-link">
-          About the data
-        </a>
-      </li>
-      <li class="nav-item active">
-        <a href="activities.html" class="nav-link">
-          A wide range of activities
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="descriptions.html" class="nav-link">
-          What people are saying
-        </a>
-      </li>
-    </ul>
+<body class="app-shell">
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">RK</span>
+        <span>Runkeeper Report</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">About</a></li>
+        <li><a href="activities.html" aria-current="page">Activities</a></li>
+        <li><a href="descriptions.html">Search</a></li>
+      </ul>
+    </div>
   </nav>
-  <main>
-    <h1>A wide range of activities</h1>
-    <p>That week, people logged <span id="numberActivities">???</span> different types of activities with Runkeeper. People logged the most <span id="firstMost">???</span>, <span id="secondMost">???</span>, and <span id="thirdMost">???</span> activities.</p>
-    <div id="activityVis"></div>
-    <p>Of these three activities, people tended to <span id="longestActivityType">???</span> the longest distance and <span id="shortestActivityType">???</span> the shortest. People tended to do their longest activities on <span id="weekdayOrWeekendLonger">???</span>.</p>
-    <button id="aggregate" class="btn btn-primary">Show means</button>
-    <div id="distanceVis"></div>
-    <div id="distanceVisAggregated"></div>
+  <main class="page-shell">
+    <header class="page-hero">
+      <p class="eyebrow">Activity mix · distance patterns</p>
+      <h1>How people moved.</h1>
+      <p class="hero-copy">
+        People logged <span id="numberActivities" class="data-value">???</span> activity types. The three most common were
+        <span class="activity-chips"><span id="firstMost" class="data-value">???</span><span id="secondMost" class="data-value">???</span><span id="thirdMost" class="data-value">???</span></span>.
+      </p>
+    </header>
+
+    <div class="chart-stack">
+      <section class="chart-card" aria-labelledby="activity-chart-title">
+        <div class="chart-heading">
+          <div>
+            <p class="eyebrow">Volume</p>
+            <h2 id="activity-chart-title">Tweets by activity type</h2>
+            <p>Every completed activity in the week, ordered from most to least common.</p>
+          </div>
+        </div>
+        <div id="activityVis" class="chart-canvas"></div>
+      </section>
+
+      <section class="insight-card" aria-label="Distance summary">
+        <p>Among the top three, <span id="longestActivityType" class="data-value">???</span> covered the longest distance on average and <span id="shortestActivityType" class="data-value">???</span> the shortest. The longest activities tended to happen on <span id="weekdayOrWeekendLonger" class="data-value">???</span>.</p>
+      </section>
+
+      <section class="chart-card" aria-labelledby="distance-chart-title">
+        <div class="chart-heading">
+          <div>
+            <p class="eyebrow">Distance</p>
+            <h2 id="distance-chart-title">Top activities across the week</h2>
+            <p>Switch between every recorded distance and the mean for each activity and weekday.</p>
+          </div>
+          <button id="aggregate" class="button-primary" type="button" aria-pressed="false">Show means</button>
+        </div>
+        <div id="distanceVis" class="chart-canvas"></div>
+        <div id="distanceVisAggregated" class="chart-canvas"></div>
+      </section>
+    </div>
   </main>
 </body>
 </html>

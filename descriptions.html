@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="author" content="Your name here">
+  <meta name="author" content="Stella Jiang">
   <meta name="description" content="One week of #RunKeeper Tweets">
   <!--Load math.js-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.0.2/math.js" integrity="sha512-U9fwz8ekKht5NdL1x4+Yh3DoXeSrsZ0M7ALcijykvrVKD+101nax1MVdc0wNSVh4GOwZGY7yQpz+rAnnoX7O3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!--math.js-->
@@ -19,52 +19,54 @@
   <script type="text/javascript" src="js/descriptions.js"></script>
   <title>One week of #RunKeeper Tweets</title>
 </head>
-<body class="container">
-  <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-primary">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item navbar-brand">
-        <span class="navbar-brand">
-          One week of #RunKeeper Tweets
-        </span>
-      </li>
-      <li class="nav-item">
-        <a href="index.html" class="nav-link">
-          About the data
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="activities.html" class="nav-link">
-          A wide range of activities
-        </a>
-      </li>
-      <li class="nav-item active">
-        <a href="descriptions.html" class="nav-link">
-          What people are saying
-        </a>
-      </li>
-    </ul>
+<body class="app-shell">
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">RK</span>
+        <span>Runkeeper Report</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">About</a></li>
+        <li><a href="activities.html">Activities</a></li>
+        <li><a href="descriptions.html" aria-current="page">Search</a></li>
+      </ul>
+    </div>
   </nav>
-  <main>
-    <h1>What people are saying</h1>
-    <p>
-      What text are you interested in looking for?
-      <input id="textFilter" type="text">
-    </p>
-    <p>
-      <span id="searchCount">???</span> Tweets contain the text '<span id="searchText">???</span>'.
-    </p>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Activity type</th>
-          <th scope="col">Sentiment</th>
-          <th scope="col">Tweet</th>
-        </tr>
-      </thead>
-      <tbody id="tweetTable">
-      </tbody>
-    </table>
+  <main class="page-shell">
+    <header class="page-hero">
+      <p class="eyebrow">User-written text · live filter</p>
+      <h1>What people said.</h1>
+      <p class="hero-copy">Search only the text written by people—not the standard Runkeeper template—and open any activity link directly from the results.</p>
+    </header>
+
+    <section class="search-panel" aria-labelledby="search-label">
+      <label id="search-label" class="search-label" for="textFilter">Search user-written Tweet text</label>
+      <div class="search-row">
+        <input id="textFilter" class="search-input" type="search" placeholder="Try “rain”, “great”, or “morning”" autocomplete="off">
+        <button id="clearSearch" class="button-secondary" type="button" disabled>Clear search</button>
+      </div>
+      <p class="search-summary" aria-live="polite">
+        <span id="searchCount" class="data-value">0</span> Tweets contain “<span id="searchText"></span>”.
+      </p>
+      <p id="searchEmptyState" class="empty-state">Start typing to explore user-written Tweets.</p>
+    </section>
+
+    <section class="results-card" aria-label="Tweet search results">
+      <div class="table-responsive">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Activity type</th>
+              <th scope="col">Sentiment</th>
+              <th scope="col">Tweet</th>
+            </tr>
+          </thead>
+          <tbody id="tweetTable"></tbody>
+        </table>
+      </div>
+    </section>
   </main>
 </body>
 </html>

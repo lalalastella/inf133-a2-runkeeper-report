@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="author" content="Your name here">
+  <meta name="author" content="Stella Jiang">
   <meta name="description" content="One week of #RunKeeper Tweets">
   <!--Online scripts-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/14.0.1/math.js" integrity="sha512-ldafwBWmh8q0wplbjDzai4As66n/6e0kxw51a+LRJ6+aZ27t0oGpz7HH5dUh+MwWLacrsF8cGT4zR0p2S3QHtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -17,39 +17,58 @@
   <link rel="stylesheet" href="css/style.css"><!--local stylesheet-->
   <title>One week of #RunKeeper Tweets</title>
 </head>
-<body class="container">
-  <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-primary">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item navbar-brand">
-        <span class="navbar-brand">
-          One week of #RunKeeper Tweets
-        </span>
-      </li>
-      <li class="nav-item active">
-        <a href="index.html" class="nav-link">
-          About the data
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="activities.html" class="nav-link">
-          A wide range of activities
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="descriptions.html" class="nav-link">
-          What people are saying
-        </a>
-      </li>
-    </ul>
+<body class="app-shell">
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">RK</span>
+        <span>Runkeeper Report</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" aria-current="page">About</a></li>
+        <li><a href="activities.html">Activities</a></li>
+        <li><a href="descriptions.html">Search</a></li>
+      </ul>
+    </div>
   </nav>
-  <main>
-    <h1>About the data</h1>
-    <p>There were <span id="numberTweets">???</span> English Tweets with the Hashtag <em>#RunKeeper</em> between <span id="firstDate">January 1st, 2000</span> and <span id="lastDate">January 1st, 2000</span>.</p>
-    <p>Completed Events: <span class="completedEvents">???</span> (<span class="completedEventsPct">?.??%</span>)</p>
-    <p>Live Events: <span class="liveEvents">???</span> tweets (<span class="liveEventsPct">?.??%</span>)</p>
-    <p>Achievements: <span class="achievements">???</span> tweets (<span class="achievementsPct">?.??%</span>)</p>
-    <p>Miscellaneous: <span class="miscellaneous">???</span> tweets (<span class="miscellaneousPct">?.??%</span>)</p>
-    <p>Of the <span class="completedEvents">???</span> of Tweets of completed events, <span class="written">???</span> (<span class="writtenPct">?.??%</span>) included user-written text.</p>
+  <main class="page-shell">
+    <header class="page-hero">
+      <p class="eyebrow">One week · #Runkeeper</p>
+      <h1>What one week of workouts reveals.</h1>
+      <p class="hero-copy">
+        This report follows <span id="numberTweets" class="data-value">???</span> English Tweets from
+        <span id="firstDate" class="data-value">January 1st, 2000</span> through
+        <span id="lastDate" class="data-value">January 1st, 2000</span> and separates automated activity updates from the words people wrote themselves.
+      </p>
+    </header>
+
+    <section class="stats-grid" aria-label="Tweet categories">
+      <article class="stat-card" style="--accent: #ff375f">
+        <span class="stat-label">Completed events</span>
+        <span class="completedEvents stat-number">???</span>
+        <span class="completedEventsPct stat-meta">?.??%</span>
+      </article>
+      <article class="stat-card" style="--accent: #30d158">
+        <span class="stat-label">Live events</span>
+        <span class="liveEvents stat-number">???</span>
+        <span class="liveEventsPct stat-meta">?.??%</span>
+      </article>
+      <article class="stat-card" style="--accent: #64d2ff">
+        <span class="stat-label">Achievements</span>
+        <span class="achievements stat-number">???</span>
+        <span class="achievementsPct stat-meta">?.??%</span>
+      </article>
+      <article class="stat-card" style="--accent: #bf5af2">
+        <span class="stat-label">Miscellaneous</span>
+        <span class="miscellaneous stat-number">???</span>
+        <span class="miscellaneousPct stat-meta">?.??%</span>
+      </article>
+    </section>
+
+    <section class="insight-card" aria-label="User-written tweet summary">
+      <p>Of the <span class="completedEvents data-value">???</span> completed events, <span class="written data-value">???</span> included text written by the person posting.</p>
+      <span class="writtenPct insight-value">?.??%</span>
+    </section>
   </main>
 </body>
 </html>
