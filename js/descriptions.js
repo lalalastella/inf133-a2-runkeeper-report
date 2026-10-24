@@ -1,3 +1,5 @@
+let writtenTweets = [];
+
 function parseTweets(runkeeper_tweets) {
 	//Do not proceed if no tweets loaded
 	if(runkeeper_tweets === undefined) {
@@ -5,11 +7,40 @@ function parseTweets(runkeeper_tweets) {
 		return;
 	}
 
-	//TODO: Filter to just the written tweets
+	writtenTweets = runkeeper_tweets.map(function(tweet) {
+		return new Tweet(tweet.text, tweet.created_at);
+	}).filter(function(tweet) {
+		return tweet.written;
+	});
+
+	updateSearchResults();
 }
 
 function addEventHandlerForSearch() {
-	//TODO: Search the written tweets as text is entered into the search box, and add them to the table
+	document.getElementById('textFilter').addEventListener('input', updateSearchResults);
+}
+
+function updateSearchResults() {
+	const searchBox = document.getElementById('textFilter');
+	const searchText = searchBox.value.trim();
+	const tableBody = document.getElementById('tweetTable');
+	document.getElementById('searchText').textContent = searchText;
+
+	if (searchText.length === 0) {
+		document.getElementById('searchCount').textContent = '0';
+		tableBody.innerHTML = '';
+		return;
+	}
+
+	const normalizedSearch = searchText.toLowerCase();
+	const matches = writtenTweets.filter(function(tweet) {
+		return tweet.writtenText.toLowerCase().includes(normalizedSearch);
+	});
+
+	document.getElementById('searchCount').textContent = matches.length;
+	tableBody.innerHTML = matches.map(function(tweet, index) {
+		return tweet.getHTMLTableRow(index + 1);
+	}).join('');
 }
 
 //Wait for the DOM to load
